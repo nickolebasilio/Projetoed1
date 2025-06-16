@@ -2,4 +2,5 @@
 
 int main(){
     printf("Scrr");
+    print("Nick diva");
 }
