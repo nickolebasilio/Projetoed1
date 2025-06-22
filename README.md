@@ -144,7 +144,7 @@ int main()
     Produto *lista_produtos = aloca_produto();
     Cliente *c = aloca_cliente();
     HistoricoVendas *v = aloca_vendas();
-    int op, codigo_venda, qtde;
+    int op, codigo_venda, qtde, i;
     printf("o que voce deseja adicionar?\n <1> produtos\n <2> clientes\n <3> vendas\n");
     scanf("%d", &op);
     switch(op)
