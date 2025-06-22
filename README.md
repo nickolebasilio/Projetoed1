@@ -1,7 +1,7 @@
 # Projetoed1
 void insere_produto(produto **lista_produtos)
 {
-    produto *novo = (produto *)malloc(sizeof(produto));
+    Produto *novo = (Produto *)malloc(sizeof(Produto));
     if(novo)
     {
         printf("qual o nome do produto que deseja inserir?\n");
@@ -26,9 +26,9 @@ void insere_produto(produto **lista_produtos)
         }
 }
 
-void insere_clientes(cliente **c)
+void insere_clientes(Cliente **c)
 {
-   cliente *novo= (cliente*)malloc(sizeof(cliente));
+   Cliente *novo= (Cliente*)malloc(sizeof(Cliente));
    if(novo)
    {
        printf("qual o id do cliente?\n");
@@ -44,9 +44,9 @@ void insere_clientes(cliente **c)
     printf("problema na alocacao de memoria\n");
 }
 
-void insere_vendas(HistoricoVendas **v, int codigo, produto *lista_produtos) //insere no histórico
+void insere_vendas(HistoricoVendas **v, int codigo, Produto *lista_produtos) //insere no histórico
 {
-    produto *aux = lista_produtos;
+    Produto *aux = lista_produtos;
 
    while((aux != NULL && aux->codigo != codigo))
    {
@@ -57,7 +57,6 @@ void insere_vendas(HistoricoVendas **v, int codigo, produto *lista_produtos) //i
    HistoricoVendas *novo = (HistoricoVendas*)malloc(sizeof(HistoricoVendas));
    if(novo)
    {
-
        novo->codigo = aux->codigo;
        for(i=0; i<4; i++) //conferir se eh pra pedir pro usuario mesmo
        {
@@ -70,9 +69,9 @@ void insere_vendas(HistoricoVendas **v, int codigo, produto *lista_produtos) //i
 
 }
 
-void diminui_estoque(produto *lista_produtos, int qtde, int codigo)
+void diminui_estoque(Produto *lista_produtos, int qtde, int codigo)
 {
-    produto *aux = lista_produtos;
+    Produto *aux = lista_produtos;
     while(aux!=NULL)
     {
         if(aux->codigo == codigo)
@@ -92,20 +91,19 @@ void diminui_estoque(produto *lista_produtos, int qtde, int codigo)
     printf("produto nao encontrado\n");
 }
 
-void processar_pedidos(produto *lista_produtos, cliente *c) //atualiza o estoque, removendo o que foi vendido
+void processar_pedidos(Produto *lista_produtos, Cliente *c) //atualiza o estoque, removendo o que foi vendido
 {
-    cliente *aux_cliente = c;
+    Cliente *aux_cliente = c;
     while(aux_cliente != NULL)
     {
-        pedido *aux_pedido = aux_cliente->pedidos;
+        Pedido *aux_pedido = aux_cliente->pedidos;
         while(aux_pedido != NULL)
         {
             PedidoItem *aux_item = aux_pedido->itens;
             while(aux_item != NULL)
             {
-                diminui_estoque(lista_produtos, aux_item->quantidade, aux_item->codigo_produto); //fazer essa funcao
+                diminui_estoque(lista_produtos, aux_item->quantidade, aux_item->codigo_produto); 
                 aux_item = aux_item->prox;
-
             }
             aux_pedido = aux_pedido->prox; //muda pro prox pedido
         }
@@ -113,11 +111,11 @@ void processar_pedidos(produto *lista_produtos, cliente *c) //atualiza o estoque
     }
 }
 
-void prever_compras(HistoricoVendas *v, produto *p)
+void prever_compras(HistoricoVendas *v, Produto *p)
 {
     int soma = 0, i;
     float media, reposicao;
-    produto *aux = p;
+    Produto *aux = p;
     while(v != NULL)
     {
         soma = 0; //conferir
