@@ -151,7 +151,7 @@ int main()
     {
         case 1 :    printf("quantos produtos deseja inserir?\n");
                     scanf("%d", &qtde);
-                    for(i=0; i<qtde_prod; i++)
+                    for(i=0; i<qtde; i++)
                     {
                         insere_produto(&lista_produtos);//conferir se nao passar parametros
                     }
