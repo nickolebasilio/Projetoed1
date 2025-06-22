@@ -137,3 +137,41 @@ void prever_compras(HistoricoVendas *v, Produto *p)
         aux = p;
     }
 }
+
+
+int main()
+{
+    Produto *lista_produtos = aloca_produto();
+    Cliente *c = aloca_cliente();
+    HistoricoVendas *v = aloca_vendas();
+    int op, codigo_venda, qtde;
+    printf("o que voce deseja adicionar?\n <1> produtos\n <2> clientes\n <3> vendas\n");
+    scanf("%d", &op);
+    switch(op)
+    {
+        case 1 :    printf("quantos produtos deseja inserir?\n");
+                    scanf("%d", &qtde);
+                    for(i=0; i<qtde_prod; i++)
+                    {
+                        insere_produto(&lista_produtos);//conferir se nao passar parametros
+                    }
+        break;
+        //conferir se precisa inicializar qtde em 0
+        case 2 : printf("quantos clientes deseja inserir?\n");
+                    scanf("%d", &qtde);
+                    for(i=0; i<qtde; i++)
+                    {
+                        insere_clientes(&c);
+                    }
+        break;
+        case 3 : printf("qual eh o codigo do produto que foi vendido?\n");
+                 scanf("%d", &codigo_venda);
+                 insere_vendas(&v, codigo_venda, lista_produtos); //parametros
+                 break;
+    }
+    processar_pedidos(lista_produtos, c);
+    prever_compras(v, p);
+
+ return 0;
+}
+
