@@ -1,4 +1,24 @@
 # Projetoed1
+Produto *aloca_produto()
+{
+    Produto *novo = (Produto *)malloc(sizeof(Produto));
+    if(novo)
+    {
+        printf("qual o nome do produto que deseja inserir?\n");
+        scanf("%s", &(novo->nome));
+        setbuf(stdin, NULL);
+        printf("qual o codigo do produto?\n");
+        scanf("%d" &(novo->codigo));
+        printf("qual a quantidade do produto?\n");
+        scanf("%d", &(novo->qtde));
+        printf("qual o valor do produto?\n");
+        scanf("%f", &(novo->precos));
+        novo->prox = NULL;
+    }
+    else
+        printf("problema na alocacao\n");
+    return NULL;
+}
 void insere_produto(Produto **lista_produtos)
 {
     Produto *novo = (Produto *)malloc(sizeof(Produto));
@@ -170,7 +190,7 @@ int main()
                  break;
     }
     processar_pedidos(lista_produtos, c);
-    prever_compras(v, p);
+    prever_compras(v, lista_produtos);
 
  return 0;
 }
