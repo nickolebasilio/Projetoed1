@@ -1,5 +1,5 @@
 # Projetoed1
-void insere_produto(produto **lista_produtos)
+void insere_produto(Produto **lista_produtos)
 {
     Produto *novo = (Produto *)malloc(sizeof(Produto));
     if(novo)
