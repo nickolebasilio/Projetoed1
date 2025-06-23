@@ -11,8 +11,9 @@ Produto *aloca_produto()
         scanf("%d" &(novo->codigo));
         printf("qual a quantidade do produto?\n");
         scanf("%d", &(novo->qtde));
-        printf("qual o valor do produto?\n");
-        scanf("%f", &(novo->precos));
+        printf("qual a categoria do produto?\n");
+        scanf("%s", &(novo->categoria));
+        setbuf(stdin, NULL);
         novo->prox = NULL;
     }
     else
@@ -31,11 +32,9 @@ void insere_produto(Produto **lista_produtos)
         scanf("%d", &(novo->codigo));
         printf("qual a quantidade do produto?\n");
         scanf("%d", &(novo->quantidade));
-        for(i=0; i<3; i++)
-        {
-            printf("qual o valor do produto %d?\n", i+1);
-            scanf("%f", &(novo->precos[i]));
-        }
+        printf("qual a categoria do produto?\n");
+        scanf("%s", &(novo->categoria));
+        setbuff(stdin, NULL);
         novo->prox = *lista_produtos;
         *lista_produtos = novo;
 
