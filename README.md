@@ -1,6 +1,7 @@
 # Projetoed1
 Produto *aloca_produto()
 {
+    int i;
     Produto *novo = (Produto *)malloc(sizeof(Produto));
     if(novo)
     {
@@ -14,14 +15,40 @@ Produto *aloca_produto()
         printf("qual a categoria do produto?\n");
         scanf("%s", &(novo->categoria));
         setbuf(stdin, NULL);
+        for(i=0; i<3; i++)
+        {
+            printf("qual o valor do produto %d?\n", i+1);
+            scanf("%f", &(novo->precos[i]));
+        }
         novo->prox = NULL;
     }
     else
         printf("problema na alocacao\n");
     return NULL;
 }
+Cliente *aloca_cliente()
+{
+    Cliente *novo = (Cliente *)malloc(sizeof(Cliente));
+    if(novo)
+    {
+        printf("qual o nome do cliente que deseja inserir?\n");
+        scanf("%s", &(novo->nome));
+        setbuf(stdin, NULL);
+        printf("qual o id do cliente?\n");
+        scanf("%d" &(novo->id_cliente));
+        novo->pedidos = NULL;
+        novo->prox = NULL;
+        return novo;
+    }
+    else
+    {
+        printf("problema na alocacao\n");
+        return NULL;
+    }
+}
 void insere_produto(Produto **lista_produtos)
 {
+    int i;
     Produto *novo = (Produto *)malloc(sizeof(Produto));
     if(novo)
     {
@@ -35,6 +62,11 @@ void insere_produto(Produto **lista_produtos)
         printf("qual a categoria do produto?\n");
         scanf("%s", &(novo->categoria));
         setbuff(stdin, NULL);
+        for(i=0; i<3; i++)
+        {
+            printf("qual o valor do produto %d?\n", i+1);
+            scanf("%f", &(novo->precos[i]));
+        }
         novo->prox = *lista_produtos;
         *lista_produtos = novo;
 
@@ -63,9 +95,31 @@ void insere_clientes(Cliente **c)
     printf("problema na alocacao de memoria\n");
 }
 
-void insere_vendas(HistoricoVendas **v, int codigo, Produto *lista_produtos) //insere no histórico
+void insere_vendas(HistoricoVendas **v, int codigo, produto *lista_produtos) //insere no histórico
 {
-    Produto *aux = lista_produtos;
+    produto *aux = lista_produtos;
+    if(*v == NULL) //historico vazio, primeiro caso
+    {
+        while((aux != NULL && aux->codigo != codigo))
+   {
+       aux = aux->prox;
+   }
+   if (aux == NULL)
+    printf("produto nao encontrado\n");
+   HistoricoVendas *novo = (HistoricoVendas*)malloc(sizeof(HistoricoVendas));
+   if(novo)
+   {
+      novo->codigo = aux->codigo;
+       for(i=0; i<4; i++) //conferir se eh pra pedir pro usuario mesmo
+       {
+           printf("qual o valor do trimestre %d", i + 1);
+           scanf("%d", &(novo->vendas[i]));
+       }
+       novo->prox = NULL;
+       *v = novo;
+   }
+
+}
 
    while((aux != NULL && aux->codigo != codigo))
    {
@@ -160,23 +214,25 @@ void prever_compras(HistoricoVendas *v, Produto *p)
 
 int main()
 {
-    Produto *lista_produtos = aloca_produto();
-    Cliente *c = aloca_cliente();
-    HistoricoVendas *v = aloca_vendas();
-    int op, codigo_venda, qtde, i;
+    produto *lista_produtos;
+    cliente *c;
+    HistoricoVendas *v;
+    int op, codigo_venda, qtde;
     printf("o que voce deseja adicionar?\n <1> produtos\n <2> clientes\n <3> vendas\n");
     scanf("%d", &op);
     switch(op)
     {
-        case 1 :    printf("quantos produtos deseja inserir?\n");
+        case 1 :   lista_produtos = aloca_produto();
+                   printf("deseja inserir mais quantos produtos?\n");
                     scanf("%d", &qtde);
-                    for(i=0; i<qtde; i++)
+                    for(i=0; i<(qtde); i++)
                     {
                         insere_produto(&lista_produtos);//conferir se nao passar parametros
                     }
         break;
         //conferir se precisa inicializar qtde em 0
-        case 2 : printf("quantos clientes deseja inserir?\n");
+        case 2 :    c = aloca_cliente();
+                    printf("quantos outros clientes deseja inserir?\n");
                     scanf("%d", &qtde);
                     for(i=0; i<qtde; i++)
                     {
@@ -189,8 +245,6 @@ int main()
                  break;
     }
     processar_pedidos(lista_produtos, c);
-    prever_compras(v, lista_produtos);
-
- return 0;
+    prever_compras(v, p);
+   return 0;
 }
-
